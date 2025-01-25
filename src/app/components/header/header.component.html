@@ -1,10 +1,16 @@
-<header>
-    <button mat-fab extended routerLink="/random-list" routerLinkActive="selected-route">
-        <mat-icon>home</mat-icon>
-        HOME
-    </button>
-    <button mat-fab extended class="ms-3" routerLink="/favorites" routerLinkActive="selected-route">
-        <mat-icon>favorite</mat-icon>
-        FAVORITES
-    </button>
+<header  class="d-flex justify-content-between">
+    <div>
+        <button mat-fab extended routerLink="/random-list" routerLinkActive="selected-route">
+            <mat-icon>home</mat-icon>
+            HOME
+        </button>
+        <button mat-fab extended class="ms-3" routerLink="/favorites" routerLinkActive="selected-route">
+            <mat-icon>favorite</mat-icon>
+            FAVORITES
+        </button>
+    </div>
+    <div  class="d-flex">
+        <h1 *ngIf="router.url === '/random-list'">RANDOM</h1>
+        <h1 *ngIf="router.url === '/favorites'">FAVORITES</h1>
+    </div>
 </header>

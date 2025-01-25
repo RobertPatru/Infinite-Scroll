@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    // --header-color: rgb(232, 226, 217);
+    --header-color: rgb(243, 233, 223);
+    // --main-background-color: rgba(217, 211, 202);
+    --main-background-color: rgba(186, 187, 182);
+    --button-selectec-color: #ffc107;
+    --text-color: rgb(42, 57, 64);
+}
 
 html,
 body {
@@ -10,7 +18,7 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     // background: rgba(255, 255, 255, 0.1) url('./app/assets/space.jpg');
-    background: rgba(217, 211, 202);
+    background: var(--main-background-color);
     background-size: cover;
     background-blend-mode: lighten;
     background-attachment: fixed;
