@@ -31,6 +31,7 @@ export class CardListComponent {
     }
 
     loadMultipleImages(numberOfImagesToLoad: number): void {
+        console.log('aaaaaaaaaa', this.imageService.getMultipleImages(numberOfImagesToLoad));
         this.imageService.getMultipleImages(numberOfImagesToLoad).subscribe({
             next: (imagesAsBlob: Blob[]) => {
                 imagesAsBlob.forEach((imageAsBlob: Blob) => this.listOfUrlsForImages.push(

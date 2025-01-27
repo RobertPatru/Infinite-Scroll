@@ -14,7 +14,7 @@ export class ImageService {
 
     constructor(private http: HttpClient) { }
 
-    getRandomImage(): Observable<any> {
+    getRandomImage(): Observable<Blob> {
         return this.http.get(this.API_URL, {
             headers: {
                 'X-Api-Key': this.API_KEY,
@@ -25,7 +25,7 @@ export class ImageService {
     }
 
     getMultipleImages(numberOfimages: number): Observable<any> {
-        const imagesRequest: Observable<any>[] = [];
+        const imagesRequest: Observable<Blob>[] = [];
 
         for(let i = 0; i < numberOfimages; i++) {
             imagesRequest.push(this.getRandomImage());
