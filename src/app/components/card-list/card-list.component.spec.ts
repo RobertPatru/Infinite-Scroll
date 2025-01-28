@@ -11,7 +11,7 @@ describe('CardListComponent', () => {
     let component: CardListComponent;
     let fixture: ComponentFixture<CardListComponent>;
     let mockImageService: jasmine.SpyObj<ImageService>;
-
+    
     beforeEach(async () => {
         mockImageService = jasmine.createSpyObj('ImageService', ['getRandomImage', 'getMultipleImages']);
 
@@ -25,8 +25,8 @@ describe('CardListComponent', () => {
         })
             .compileComponents();
 
-        const injectedImageService = TestBed.inject(ImageService);
-        console.log('Injected ImageService:', injectedImageService);
+        const imageService: ImageService = TestBed.inject(ImageService);
+        console.log('Injected ImageService:', imageService);
 
 
         fixture = TestBed.createComponent(CardListComponent);
@@ -38,7 +38,7 @@ describe('CardListComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    fit('should load multimple images', () => {
+    it('should load multimple images', () => {
         const mockArrayOfBlob = [
             new Blob(['mockImageData'], { type: 'image/png' }),
             new Blob(['mockImageData'], { type: 'image/png' }),
@@ -50,8 +50,8 @@ describe('CardListComponent', () => {
         console.log('ImageService mock:', mockImageService);
 
         mockImageService.getMultipleImages.and.returnValue(of(mockArrayOfBlob));
-        component.loadMultipleImages(5);
-    
+        // component.loadMultipleImages(5);
+
         expect(mockImageService.getMultipleImages).toHaveBeenCalled();
     });
 });

@@ -24,7 +24,7 @@ export class ImageService {
         });
     }
 
-    getMultipleImages(numberOfimages: number): Observable<any> {
+    getMultipleImages(numberOfimages: number): Observable<Blob[]> {
         const imagesRequest: Observable<Blob>[] = [];
 
         for(let i = 0; i < numberOfimages; i++) {
