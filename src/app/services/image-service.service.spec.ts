@@ -61,4 +61,24 @@ describe('ImageServiceService', () => {
             expect(req.request.method).toBe('GET');
         });
     });
+
+    it('should throw and error when the request fails', () => {
+        service.getRandomImage().subscribe({
+            next: () => {
+                fail('Expected an error, but the got a respose');
+            },
+            error: (error: Error) => {
+                expect(error).toBeTruthy;
+                expect(error.message).toContain('Internal Server Error');
+            }
+        });
+
+        const req = testingController.expectOne(service['API_URL']);
+        expect(req.request.method).toBe('GET');
+        req.flush(null, { status: 500, statusText: 'Internal Server Error' });
+    });
+
+    afterEach(() => {
+        testingController.verify();
+    });
 });
