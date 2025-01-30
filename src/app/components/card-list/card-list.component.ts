@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { ImageCardComponent } from '../image-card/image-card.component';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { ImageCardComponent } from '../image-card/image-card.component';
 import { ImageService } from '../../services/image-service.service';
-import { Observable } from 'rxjs';
+
 
 @Component({
     selector: 'app-card-list',
@@ -11,10 +12,13 @@ import { Observable } from 'rxjs';
     templateUrl: './card-list.component.html',
     styleUrl: './card-list.component.scss'
 })
-export class CardListComponent {
+export class CardListComponent implements OnInit {
     listOfUrlsForImages: string[] = [];
 
     constructor(private imageService: ImageService) {
+    }
+
+    ngOnInit(): void {
         this.loadMultipleImages(5);
     }
 
@@ -41,6 +45,6 @@ export class CardListComponent {
             error: (err: Error) => {
                 console.error('There was a problem loading multiple images: ', err);
             }
-        })
+        });
     }
 }

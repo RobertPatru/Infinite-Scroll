@@ -1,8 +1,6 @@
-import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { CardListComponent } from './card-list.component';
 import { ImageService } from '../../services/image-service.service';
@@ -11,34 +9,44 @@ describe('CardListComponent', () => {
     let component: CardListComponent;
     let fixture: ComponentFixture<CardListComponent>;
     let mockImageService: jasmine.SpyObj<ImageService>;
-    
+    let spyConsoleError: jasmine.SpyObj<any>;
+
     beforeEach(async () => {
         mockImageService = jasmine.createSpyObj('ImageService', ['getRandomImage', 'getMultipleImages']);
 
         await TestBed.configureTestingModule({
             imports: [CardListComponent],
             providers: [
-                provideHttpClient(),
-                provideHttpClientTesting(),
                 { provide: ImageService, useValue: mockImageService },
             ]
         })
             .compileComponents();
 
-        const imageService: ImageService = TestBed.inject(ImageService);
-        console.log('Injected ImageService:', imageService);
-
-
         fixture = TestBed.createComponent(CardListComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('should load a single image', () => {
+        const mockBlobImage = new Blob(['mockImageData'], { type: 'image/png' });
+
+        mockImageService.getRandomImage.and.returnValue(of(mockBlobImage));
+        component.loadSingleImage();
+
+        expect(mockImageService.getRandomImage).toHaveBeenCalled();
+        expect(component.listOfUrlsForImages.length).toBe(1);
     });
 
-    it('should load multimple images', () => {
+    it('should throw error the image could not be loaded', () => {
+        mockImageService.getRandomImage.and.returnValue(throwError(() => new Error('Error loading the image')));
+        spyOn(console, 'error');
+
+        component.loadSingleImage();
+
+        expect(mockImageService.getRandomImage).toHaveBeenCalled();
+        expect(console.error).toHaveBeenCalledWith('Error loading image: ', jasmine.any(Error));
+    });
+
+    it('should load multiple images', () => {
         const mockArrayOfBlob = [
             new Blob(['mockImageData'], { type: 'image/png' }),
             new Blob(['mockImageData'], { type: 'image/png' }),
@@ -47,11 +55,26 @@ describe('CardListComponent', () => {
             new Blob(['mockImageData'], { type: 'image/png' })
         ];
 
-        console.log('ImageService mock:', mockImageService);
-
         mockImageService.getMultipleImages.and.returnValue(of(mockArrayOfBlob));
-        // component.loadMultipleImages(5);
+        component.loadMultipleImages(5);
 
         expect(mockImageService.getMultipleImages).toHaveBeenCalled();
+        expect(component.listOfUrlsForImages.length).toBe(5);
+    });
+
+    it('should load multimple images after initialization', () => {
+        const mockArrayOfBlob = [
+            new Blob(['mockImageData'], { type: 'image/png' }),
+            new Blob(['mockImageData'], { type: 'image/png' }),
+            new Blob(['mockImageData'], { type: 'image/png' }),
+            new Blob(['mockImageData'], { type: 'image/png' }),
+            new Blob(['mockImageData'], { type: 'image/png' })
+        ];
+
+        mockImageService.getMultipleImages.and.returnValue(of(mockArrayOfBlob));
+        fixture.detectChanges();
+
+        expect(mockImageService.getMultipleImages).toHaveBeenCalled();
+        expect(component.listOfUrlsForImages.length).toBe(5);
     });
 });

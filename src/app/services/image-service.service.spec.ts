@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ImageService } from './image-service.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+
+import { ImageService } from './image-service.service';
 
 describe('ImageServiceService', () => {
     let service: ImageService;
@@ -19,10 +18,6 @@ describe('ImageServiceService', () => {
         });
         service = TestBed.inject(ImageService);
         testingController = TestBed.inject(HttpTestingController)
-    });
-
-    it('should be created', () => {
-        expect(service).toBeTruthy();
     });
 
     it('should get a random image', () => {
