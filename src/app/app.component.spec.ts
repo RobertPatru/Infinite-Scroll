@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { FavoriteListComponent } from './components/favorite-list/favorite-list.component';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
     let router: Router;
