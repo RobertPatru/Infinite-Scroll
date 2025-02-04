@@ -36,7 +36,7 @@ describe('CardListComponent', () => {
         expect(component.listOfUrlsForImages.length).toBe(1);
     });
 
-    it('should throw error the image could not be loaded', () => {
+    it('should console error if the image could not be loaded', () => {
         mockImageService.getRandomImage.and.returnValue(throwError(() => new Error('Error loading the image')));
         spyOn(console, 'error');
 
@@ -76,5 +76,15 @@ describe('CardListComponent', () => {
 
         expect(mockImageService.getMultipleImages).toHaveBeenCalled();
         expect(component.listOfUrlsForImages.length).toBe(5);
+    });
+
+    it('should console error if the image could not be loaded', () => {
+        mockImageService.getMultipleImages.and.returnValue(throwError(() => new Error('Error loading the images')));
+        spyOn(console, 'error');
+
+        component.loadMultipleImages(5);
+
+        expect(mockImageService.getMultipleImages).toHaveBeenCalled();
+        expect(console.error).toHaveBeenCalledWith('There was a problem loading multiple images: ', jasmine.any(Error));
     });
 });
