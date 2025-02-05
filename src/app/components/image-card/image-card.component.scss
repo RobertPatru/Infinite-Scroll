@@ -10,3 +10,9 @@ mat-card {
         width: 100%;
     }
 }
+
+::ng-deep {
+    .color-red {
+        color: red;
+    }
+}
