@@ -20,27 +20,12 @@ export class CardListComponent implements OnInit, OnDestroy {
     loading: boolean = true;
 
     constructor(private imageService: ImageService) {
-        this.loadImagesBasedOnEnvironment();
     }
 
     ngOnInit(): void {
         window.addEventListener('scroll', this.onScroll);
 
         this.loadImagesBasedOnEnvironment();
-    }
-
-    loadSingleImage(): void {
-        this.loading = true;
-        this.imageService.getRandomImage().subscribe({
-            next: (blob: Blob) => {
-                const imageUrl = URL.createObjectURL(blob);
-                this.listOfUrlsForImages.push(imageUrl);
-            },
-            error: (err: Error) => {
-                console.error('Error loading image: ', err);
-            }
-        });
-        this.loading = false;
     }
 
     loadMultipleImages(numberOfImagesToLoad: number): void {
@@ -67,7 +52,7 @@ export class CardListComponent implements OnInit, OnDestroy {
             setTimeout(() => {
                 this.listOfUrlsForImages.push(...this.imageService.getMockImages());
                 this.loading = false;
-            }, 1500);
+            }, Math.random() * 1500);
         } else {
             this.loadMultipleImages(15);
         }

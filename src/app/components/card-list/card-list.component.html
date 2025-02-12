@@ -1,4 +1,4 @@
-<ng-container *ngFor="let image of listOfUrlsForImages">
-    <app-image-card [imageUrl]="image"></app-image-card>
+<ng-container *ngFor="let image of listOfUrlsForImages; let i = index">
+    <app-image-card [imageUrl]="image" [imageId]="i.toString()"></app-image-card>
 </ng-container>
 <mat-spinner *ngIf="loading" class="d-block mx-auto mt-100" diameter="200"></mat-spinner>

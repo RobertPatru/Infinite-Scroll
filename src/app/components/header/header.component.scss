@@ -1,8 +1,15 @@
 :host {
     display: block;
+    height: 96px;
     max-width: 100%;
     background-color: var(--header-color);
     box-shadow: 0 0 10px black;
+    
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    will-change: top;
 }
 
 header {

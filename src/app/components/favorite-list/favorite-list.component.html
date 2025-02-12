@@ -1,1 +1,7 @@
-<h1 style="font-size: 150px; color: wheat;">Favorite Page</h1>
+<mat-spinner *ngIf="loading" class="d-block mx-auto mt-100" diameter="200"></mat-spinner>
+
+<ng-container *ngFor="let image of listOfImages">
+    <app-image-card [imageUrl]="image.imageUrl" [imageId]="image.imageId"></app-image-card>
+</ng-container>
+
+<h1 *ngIf="isFavoriteListEmpty" class="mt-100 mx-auto">Favorite list is empty</h1>
