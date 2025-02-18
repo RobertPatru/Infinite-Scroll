@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -12,7 +12,8 @@ import { environment } from '../../environments/environment';
     selector: 'app-card-list',
     imports: [ImageCardComponent, CommonModule, RouterModule, MatProgressSpinnerModule],
     templateUrl: './card-list.component.html',
-    styleUrl: './card-list.component.scss'
+    styleUrl: './card-list.component.scss',
+    host: { '(window:scroll)': 'onScroll()' }
 })
 
 export class CardListComponent implements OnInit, OnDestroy {
@@ -23,8 +24,6 @@ export class CardListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        window.addEventListener('scroll', this.onScroll);
-
         this.loadImagesBasedOnEnvironment();
     }
 
@@ -40,6 +39,7 @@ export class CardListComponent implements OnInit, OnDestroy {
             },
             error: (err: Error) => {
                 console.error('There was a problem loading multiple images: ', err);
+                this.loading = false;
             }
         });
     }
@@ -58,7 +58,7 @@ export class CardListComponent implements OnInit, OnDestroy {
         }
     }
 
-    onScroll = (): void => {
+    onScroll(): void  {
         if (this.loading) {
             return;
         }
@@ -75,6 +75,5 @@ export class CardListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        window.removeEventListener('scroll', this.onScroll);
     }
 }
