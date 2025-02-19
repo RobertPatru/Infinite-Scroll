@@ -18,7 +18,7 @@ export class FavoritesServiceService {
         localStorage.removeItem(`fav_${imageInfo.imageId}`);
     }
 
-    getImagesFromLocalStorage(): ImageInfo[] | any {
+    getImagesFromLocalStorage(): ImageInfo[] {
         const listOfImages: ImageInfo[] = [];
 
         for (let i = 0; i < localStorage.length + 2; i++) {

@@ -29,5 +29,7 @@ export class FavoriteListComponent implements OnInit{
         
         if (this.listOfImages.length === 0) 
             this.isFavoriteListEmpty = true;
+        else
+            this.isFavoriteListEmpty = false;
     }
 }
