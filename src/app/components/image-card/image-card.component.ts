@@ -21,34 +21,18 @@ export class ImageCardComponent {
 
     constructor(private favoritesService: FavoritesServiceService) { }
 
-    addToFavorites(event: Event): void {
-        const imageInfo: ImageInfo = this.getImageInfo(event);
-
-        if (!imageInfo)
+    updateFavoriteStatus (): void {
+        if (!this.imageId || !this.imageUrl)
             return;
 
         if (this.wasAddedToFavorites) {
-            this.deleteFromLocalStorage(imageInfo);
+            this.deleteFromLocalStorage({ 'imageUrl': this.imageUrl, 'imageId': this.imageId });
         }
         else {
-            this.saveToLocalStorage(imageInfo);
+            this.saveToLocalStorage({ 'imageUrl': this.imageUrl, 'imageId': this.imageId });
         }
 
         this.wasAddedToFavorites = !this.wasAddedToFavorites;
-    }
-
-    getImageInfo(event: Event): ImageInfo {
-        const buttonElement: HTMLElement = event.currentTarget as HTMLElement;
-        const imageCardElement: HTMLElement | null = buttonElement.closest('.image-card');
-        const imageElement: HTMLElement | null | undefined = imageCardElement?.querySelector('img');
-
-        if (!imageElement)
-            throw new Error("Image element was not found.");
-
-        const imageUrl: string = imageElement.getAttribute('data-imageUrl') ?? 'nothing found';
-        const imageId: string = imageElement.getAttribute('data-image-id') ?? 'nothing found';
-
-        return { 'imageUrl': imageUrl, 'imageId': imageId };
     }
 
     saveToLocalStorage(imageInfo: ImageInfo): void {
