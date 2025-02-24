@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 import { FavoritesServiceService } from '../../services/favorites-service.service';
 import { ImageInfo } from '../../interfaces/image-info.interface';
@@ -8,7 +9,7 @@ import { ImageCardComponent } from "../image-card/image-card.component";
 
 @Component({
     selector: 'app-favorite-list',
-    imports: [CommonModule, ImageCardComponent, MatProgressSpinnerModule],
+    imports: [CommonModule, ImageCardComponent, MatProgressSpinnerModule, FormsModule],
     templateUrl: './favorite-list.component.html',
     styleUrl: './favorite-list.component.scss'
 })
@@ -31,5 +32,10 @@ export class FavoriteListComponent implements OnInit{
             this.isFavoriteListEmpty = true;
         else
             this.isFavoriteListEmpty = false;
+    }
+
+    reloadFavoriteList(changesMade: boolean): void {
+        this.listOfImages = [];
+        this.loadImagesFromLocalStorage();
     }
 }

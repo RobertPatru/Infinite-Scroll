@@ -1,11 +1,11 @@
 <mat-card appearance="outlined" class="image-card">
     <img mat-card-image [src]="imageUrl" alt="Image" [attr.data-imageUrl]="imageUrl" [attr.data-image-id]="imageId" class="image">
     <mat-card-actions>
-        <button mat-button *ngIf="wasAddedToFavorites" (click)="updateFavoriteStatus ()" class="color-red">
+        <button mat-button *ngIf="wasAddedToFavorites" (click)="updateFavoriteStatus()" class="color-red">
             <mat-icon>cancel</mat-icon>
             REMOVE FROM FAVORITES
         </button>
-        <button mat-button *ngIf="!wasAddedToFavorites" (click)="updateFavoriteStatus ()">
+        <button mat-button *ngIf="!wasAddedToFavorites" (click)="updateFavoriteStatus()">
             <mat-icon>favorite</mat-icon>
             ADD TO FAVORITES
         </button>

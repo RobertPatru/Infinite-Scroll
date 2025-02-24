@@ -35,7 +35,7 @@ export class ImageService {
     }
 
     getMockImages(): string[] {
-        const mockUrl: string = "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Zugpsitze_mountain.jpg?crop=0%2C176%2C3008%2C1654&wid=4000&hei=2200&scl=0.752";
+        const mockUrl: string = "https://images.news18.com/webstories/uploads/2024/10/5-wildlife-photography-destination-2024-10-4df6d4a8d4614b4aedfeaff2037a789d.jpg";
         const mockImages: string[] = new Array(10).fill(mockUrl);
 
         return mockImages;

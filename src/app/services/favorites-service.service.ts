@@ -15,7 +15,7 @@ export class FavoritesServiceService {
     }
 
     deleteFromLocalStorage(imageInfo: ImageInfo): void {
-        localStorage.removeItem(`fav_${imageInfo.imageId}`);
+        localStorage.removeItem(imageInfo.imageId);
     }
 
     getImagesFromLocalStorage(): ImageInfo[] {
