@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
 import { ImageInfo } from '../interfaces/image-info.interface';
+import { addImageToFavorites } from '../store/favorites.actions';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FavoritesServiceService {
-    constructor() { }
+    constructor(private storeService: Store) { }
 
     saveToLocalStorage(imageInfo: ImageInfo): void {
         if (!!imageInfo) {
             localStorage.setItem(`fav_${imageInfo.imageId}`, imageInfo.imageUrl);
+            this.storeService.dispatch(addImageToFavorites({ image: imageInfo }));
         }
     }
 

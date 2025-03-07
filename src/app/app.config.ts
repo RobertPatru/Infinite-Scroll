@@ -1,16 +1,19 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { provideState, provideStore } from '@ngrx/store';
+
+import { favoritesReducer } from './store/favorites.reducer';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }), 
-        provideRouter(routes), 
-        provideAnimationsAsync(), 
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(routes),
+        provideAnimationsAsync(),
         provideHttpClient(),
+        provideStore({ favorites: favoritesReducer })
     ]
 };
